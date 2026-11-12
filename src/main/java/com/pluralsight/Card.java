@@ -11,7 +11,11 @@ public class Card {
         this.value = value;
         this.faceUp = faceUp;
     }
+
+
+
     public String getSuit(){
+        // only return the suit if the card is face up
         if(faceUp){
             return this.suit;
         }
@@ -20,16 +24,44 @@ public class Card {
         }
     }
     public String geValue(){
+
+        // only return the value if the card is face up
         if(faceUp){
-            return this.value;
+            return this.value;// this is the string value of the card
+            // i.e. A, K, Q, J, 10, 9 ...
         }
         else {
             return "#";
         }
     }
     public int getPointValue(){
-        if (faceUp){
+        // only return the value if the card is face up
+        if (!faceUp) return 0;
 
-        }
+        return switch (value) {
+                case "A" -> 11;
+                case "K", "Q", "J", "10" -> 10;
+                case "2" -> 2;
+                case "3" -> 3;
+                case "4" -> 4;
+                case "5" -> 5;
+                case "6" -> 6;
+                case "7" -> 7;
+                case "8" -> 8;
+                case "9" -> 9;
+                default -> throw new IllegalStateException("Unexpected value: " + value);
+            };
+            // @todo determine point value and return it
+            // A = 11
+            // K, Q, J = 10
+            // all numeric cards are equal to their face value
+
+    }
+
+    public boolean isFaceUp(){
+        return faceUp;
+    }
+    public void flip(){
+        faceUp = !faceUp;
     }
 }
